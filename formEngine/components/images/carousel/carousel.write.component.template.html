@@ -1,0 +1,22 @@
+<div class="carouselH100">
+    <div class="carousel-edition">
+        <div>
+            <div class="label">Add an image</div>
+            <div>
+                <input type="file" aria-label="label" on-file-change="carouselWriteCtrl.uploadNewFile"/>
+            </div>
+        </div>
+        <div class="carousel-flex carousel-showall">
+            <div ng-repeat="image in carouselWriteCtrl.images track by $index">
+                <div lazy-image="image"
+                     lazy-image-type="carouselWriteCtrl.params.imageType"
+                     lazy-image-class="carousel-picture" class="carousel-card shadow-bottom"
+                     lazy-image-click="carouselWriteCtrl.openCarouselModal(image, carouselWriteCtrl.images)"
+                     lazy-image-crop="true">
+                    <label>{{image.name}}</label>
+                    <div class="remove-carousel-item" ng-click="carouselWriteCtrl.remove(image)">X</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
