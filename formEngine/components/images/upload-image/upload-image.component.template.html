@@ -1,0 +1,20 @@
+<div>
+    <div ng-if="::uploadImageComponentCtrl.params.mode === uploadImageComponentCtrl.GM.READ">
+        <img ng-if="uploadImageComponentCtrl.hasValue()" no-cache-src="{{uploadImageComponentCtrl.getUrlImage()}}" ng-click="uploadImageComponentCtrl.openImage($event)" title="{{uploadImageComponentCtrl.image.name}}">
+        <label ng-if="!uploadImageComponentCtrl.hasValue()">{{'file.nofile.toDisplay' | translate}}</label>
+    </div>
+    <div ng-if="::uploadImageComponentCtrl.params.mode === uploadImageComponentCtrl.GM.WRITE" class="upload-image-renderer">
+        <div class="fileUpload-container">
+            <div class="fileUpload md-button" ng-if="uploadImageComponentCtrl.isDesktop">
+                <span>Select a file</span>
+                <i ng-show="uploadImageComponentCtrl.loading" class="imgloader"></i>
+                <input type="file" aria-label="label" on-file-change="uploadImageComponentCtrl.uploadNewFile" class="upload"/>
+            </div>
+        </div>
+        <div style="margin-left:8px">
+            <label ng-if="!uploadImageComponentCtrl.hasValue()">{{'file.nofile' | translate}}</label>
+            <img ng-if="!uploadImageComponentCtrl.loading && uploadImageComponentCtrl.hasValue()" no-cache-src="{{uploadImageComponentCtrl.getUrlImage('icon')}}" ng-click="uploadImageComponentCtrl.openImage($event)" title="{{uploadImageComponentCtrl.image.name}}">
+            <i ng-show="!uploadImageComponentCtrl.loading && uploadImageComponentCtrl.hasValue()" class="material-icons remove-icon" ng-click="uploadImageComponentCtrl.remove()">clear</i>
+        </div>
+    </div>
+</div>
