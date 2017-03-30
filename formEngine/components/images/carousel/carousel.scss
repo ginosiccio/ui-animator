@@ -1,0 +1,300 @@
+.ui-anim-fade.ng-hide {
+  transition:0.5s linear all;
+  opacity:0;
+}
+.ui-anim-fade.ng-show {
+  transition:0.5s linear all;
+  opacity:1;
+}
+.ui-anim-fade {
+  transition:0.5s linear all;
+  opacity:1;
+}
+.ui-anim-fade.ng-enter {
+  opacity:0;
+}
+.ui-anim-fade.ng-leave.ng-leave-active {
+  opacity:0;
+}
+.ui-anim-fade.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+
+.swipe-container-left *,
+.swipe-container-right * { transition: .5s all; }
+
+.swipe-container-left,
+.swipe-container-right {
+  position: absolute;
+  bottom: 50%;
+  margin: auto 0;
+  background-color: rgba(121, 132, 137, 0.47);
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border: 1px solid #bac3c9;
+  border-radius: 50%;
+  z-index: 9;
+  font-family: 'Open Sans Condensed', 'TradeGothic CondEighteen', Arial, sans-serif;
+}
+
+.swipe-container-left {
+  left: 20px;
+}
+
+.swipe-container-right {
+  right: 20px;
+}
+
+.swipe-text {
+  display: flex;
+  height: 100%;
+  color: #fff;
+  line-height: 50px;
+  font-weight: 100;
+  font-size: 42px;
+  text-align:center;
+  text-shadow: 0 1px 0 hsla(0,0%,0%,.75), 0 0 5px hsla(0,0%,0%,.75);
+}
+
+.swipe-container-left:hover .swipe-text,
+.swipe-container-right:hover .swipe-text {
+  background: hsla(0,0%,0%,.33);
+  cursor: pointer;
+}
+
+.swipe-text-rotate-left,
+.swipe-text-rotate-right {
+  position: relative;
+  top: -3px;
+  color: #fff !important;
+}
+
+.swipe-text-rotate-left {
+  left: 8px;
+}
+
+.swipe-text-rotate-right {
+  left: 13px;
+}
+
+carousel-renderer{
+  width: 100% !important;
+}
+
+div.carousel-flex{
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+}
+
+div.carousel-showall {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+div.carousel-picture {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 22px;
+  position: relative;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+div.case-study-card div.carousel-picture,
+div.carousel-edition div.carousel-picture{
+  width: 112px;
+  padding: 0px;
+}
+
+div.carousel-picture img{
+  width: 100%;
+}
+
+div.carousel-edition div.carousel-picture label{
+  @extend .ellipsis;
+  width: calc(100% - 22px);
+  height: 20px;
+  margin-bottom: 0;
+  padding-top: 2px;
+  padding-left: 2px;
+}
+
+div.showall {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+
+.carousel-renderer {
+  width: calc(100% - 30px);
+  margin-left: 15px;
+}
+
+.caroussel-thumbnail {
+  max-width: 96px;
+  max-height: 96px;
+}
+
+carousel-renderer{
+  width: 100% !important;
+}
+
+div.carousel-card {
+  max-width: calc(100% - 23px);
+  min-width: calc(100% - 23px);
+  width: calc(100% - 23px);
+  margin: 11px;
+  background-color: white;
+  border: 0 solid #16a9de;
+  border-left-width: 5px;
+}
+
+div.case-study-card div.carousel-flex div.carousel-card{
+  border: none;
+  margin: 11px 0px;
+  width: 112px;
+  min-width: 112px;
+  max-width: 112px;
+  height: calc(100% - 22px);
+  min-height: 78px;
+  max-height: 78px;
+}
+
+div.carousel-edition div.carousel-flex div.carousel-card{
+  height: 80px;
+  min-height: 80px;
+  max-height: 80px;
+  width: 112px;
+  min-width: 112px;
+  max-width: 112px;
+  border: none;
+  margin: 11px 11px;
+}
+
+div.case-study-full-carousel{
+  width: 100%;
+  div.carousel-flex {
+    height: calc(100% - 30px) !important;
+  }
+}
+
+
+@media screen and (min-width: 652px) {
+  div.carousel-flex div.carousel-card {
+    max-width: calc(100% / 2 - 22px);
+    min-width: calc(100% / 2 - 22px);
+    width: calc(100% / 2 - 22px);
+    min-height: 255px;
+    max-height: 255px;
+    height: 255px;
+  }
+}
+
+@media screen and (min-width: 1218px) {
+  div.carousel-flex div.carousel-card {
+    max-width: calc(100% / 4 - 22px);
+    min-width: calc(100% / 4 - 22px);
+    width: calc(100% / 4 - 22px);
+    min-height: 175px;
+    max-height: 175px;
+    height: 175px;
+  }
+}
+
+@media screen and (min-width: 1352px) {
+  div.carousel-flex div.carousel-card {
+    max-width: calc(100% / 3 - 22px);
+    min-width: calc(100% / 3 - 22px);
+    width: calc(100% / 3 - 22px);
+    min-height: 274px;
+    max-height: 274px;
+    height: 274px;
+  }
+}
+
+@media screen and (min-width: 1784px) {
+  div.carousel-flex div.carousel-card {
+    max-width: calc(100% / 6 - 22px);
+    min-width: calc(100% / 6 - 22px);
+    width: calc(100% / 6 - 22px);
+    min-height: 166px;
+    max-height: 166px;
+    height: 166px;
+  }
+}
+
+.image-crop{
+  overflow-y: hidden;
+  height: 100%;
+}
+
+.lazy-image-error{
+  right: 0;
+  left: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.lazy-image-error md-icon {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: red !important;
+  border: 1px solid;
+  border-radius: 50%;
+}
+
+div.carousel-flex [role=button],
+div.modal-lazy-image [role=button]{
+  cursor: inherit;
+}
+
+div.carousel-flex .clickable {
+  cursor: pointer;
+}
+
+md-dialog.show-carousel-modal{
+  overflow-y: hidden;
+}
+md-dialog.show-carousel-modal md-dialog-content {
+  padding: 0px 16px 0px 0px;
+  overflow: auto;
+  min-width: 300px;
+  min-height: 90px;
+}
+
+md-dialog.show-carousel-modal .modal-lazy-image{
+  width: 100%;
+}
+
+div.carousel-flex div.remove-carousel-item[role=button] {
+  cursor: pointer;
+}
+
+.remove-carousel-item{
+  width: 21px;
+  background: rgba(208, 184, 184, 0.24);
+  border: 1px solid rgba(255, 0, 0, 0.43);
+  border-radius: 50%;
+  text-align: center;
+  color: red;
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  cursor: pointer;
+}
+
+.carouselH100{
+  height: 100%;
+}
+
