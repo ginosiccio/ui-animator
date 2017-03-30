@@ -1,0 +1,14 @@
+<div class="carouselH100">
+    <div class="field" ng-if="carouselReadCtrl.params.togglable">
+        <div class="label"></div>
+        <div class="value text texthighlight clickable" ng-click="carouselReadCtrl.toggle()">{{carouselReadCtrl.display === 'inline' ? 'Show All' : 'Inline View'}}</div>
+    </div>
+    <div class="carousel-flex" ng-class="{'carousel-showall' : carouselReadCtrl.params.togglable && carouselReadCtrl.display === 'wrap'}">
+        <div lazy-image="image"
+             lazy-image-type="carouselReadCtrl.params.imageType"
+             lazy-image-class="carousel-picture" class="carousel-card shadow-bottom"
+             lazy-image-click="carouselReadCtrl.openCarouselModal(image, carouselReadCtrl.images)"
+             lazy-image-crop="true"
+             ng-repeat="image in carouselReadCtrl.images track by $index"></div>
+    </div>
+</div>
