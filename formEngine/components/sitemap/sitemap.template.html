@@ -1,0 +1,25 @@
+<md-dialog aria-label="imageTitle" class="air-shortcuts-modal">
+    <md-dialog-content>
+        <div class="air-shortcuts-panel">
+            <div class="air-shortcuts-panel-filter"><input ng-model="shortcutFilterModel" id="air-shortcut-filter" ng-change="filterAirShortcuts(shortcutFilterModel)" placeholder="Shortcuts filter (Team, Risk...)"></div>
+            <div ng-repeat="block in blocksFiltered track by $index" class="air-shortcuts-block">
+                <div ng-click="goToBlock(block)" class="block-title">{{block.title}}</div>
+                <ul class="air-shortcuts-section">
+                    <li ng-repeat="section in block.sections track by $index">
+                        <label ng-click="goToSection(block, section)" class="section-title">{{section.title}}</label>
+                        <ul class="air-shortcuts-chapters">
+                            <li ng-repeat="chapter in section.chapters track by $index">
+                                <label ng-click="goToChapter(block, section, chapter)" ng-class="{'texthighlight' : chapter.highlight}">{{chapter.title}}</label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </md-dialog-content>
+    <div class="md-actions">
+        <md-button ng-click="close()" class="md-primary">Close</md-button>
+    </div>
+</md-dialog>
+
+
