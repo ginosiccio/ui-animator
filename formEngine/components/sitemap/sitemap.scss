@@ -1,0 +1,51 @@
+
+/* Air-Shortcuts */
+.air-shortcuts-modal{
+  width:80%;
+  height:80%;
+
+  md-dialog-content{height:100% !important;}
+
+  .air-shortcuts-panel{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .air-shortcuts-panel-filter{
+      width: 100%;
+      text-align: center;
+      margin-bottom: 25px;
+      input {
+        width: 250px;
+        padding: 2px 10px;
+        border: 1px solid #989898;
+        height: 28px;
+      }
+    }
+
+    label{
+      white-space: nowrap;
+      padding-right: 15px;
+      &.texthighlight {
+        @include texthighlight();
+      }
+    }
+    .air-shortcuts-block{
+      width: auto;
+      margin-bottom: 11px;
+
+      .block-title{
+        font-weight: bold;
+        width: 90%;
+        text-align: center;
+        margin-bottom: 15px;
+        border-bottom: 1px solid black;
+        text-transform: capitalize;
+      }
+    }
+    .air-shortcuts-block:last-child{
+      padding-right: 50px;
+    }
+
+  }
+}
