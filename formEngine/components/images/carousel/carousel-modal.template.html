@@ -1,0 +1,18 @@
+<md-dialog aria-label="imageTitle" class="show-carousel-modal">
+    <md-dialog-content>
+        <div class="swipe-container-left" ng-if="images.length>1">
+            <a class="swipe-text" ng-click="back()">
+                <div class="swipe-text-rotate-left"><</div>
+            </a>
+        </div>
+        <div class="swipe-container-right" ng-if="images.length>1">
+            <a class="swipe-text" ng-click="next()">
+                <div class="swipe-text-rotate-right">></div>
+            </a>
+        </div>
+        <div lazy-image="image" lazy-image-type="lazyImageType" class="modal-lazy-image"></div>
+    </md-dialog-content>
+    <div class="md-actions">
+        <md-button ng-click="close()" class="md-primary">Close</md-button>
+    </div>
+</md-dialog>
