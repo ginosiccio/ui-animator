@@ -1,0 +1,12 @@
+<div class="{{vm.lazyImageClass}}">
+    <ng-transclude></ng-transclude>
+    <div class="{{vm.lazyImageCrop ? 'image-crop' : ''}} {{vm.lazyImageClick!=null && !vm.error ? 'clickable': ''}}" ng-click="vm.clickCallback()">
+        <div class="lazy-image-error ui-anim-fade" ng-if="vm.error">
+            <md-icon md-svg-src="assets/img/icons-md/close.svg"></md-icon>
+        </div>
+        <div spinner-img ng-if="vm.loading" class="ui-anim-fade"></div>
+        <div class="ui-anim-fade" ng-if="vm.loaded">
+            <img ng-src="{{vm.src}}">
+        </div>
+    </div>
+</div>
