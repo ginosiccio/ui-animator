@@ -1,0 +1,22 @@
+<div class="input-renderer">
+    <md-input-container>
+        <label>
+            {{::emailComponentCtrl.label}}
+        </label>
+
+        <input type="email"
+               ng-model="emailComponentCtrl.fieldValue"
+               name="{{::emailComponentCtrl.fieldName}}"
+               ng-attr-maxlength="{{emailComponentCtrl.params.maxLength}}"
+               ng-attr-minlength="{{emailComponentCtrl.params.minLength}}"
+               ng-disabled="emailComponentCtrl.readOnly"
+               ng-required="{{emailComponentCtrl.valueRequired}}"/>
+
+        <div ng-messages="formController[emailComponentCtrl.fieldName].$error">
+            <div ng-message="required">{{'validation.error.requiredField' | translate}}</div>
+            <div ng-message="email">You must enter a valid email address (i.e. me@home.org)</div>
+            <div ng-message="minlength">Your input must be at least {{emailComponentCtrl.params.minLength}} long.</div>
+            <div ng-message="maxlength">Your input must be at most {{emailComponentCtrl.params.maxLength}} long.</div>
+        </div>
+    </md-input-container>
+</div>
