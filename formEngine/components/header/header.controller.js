@@ -2,21 +2,29 @@
     'use strict';
 
     angular
-        .module('app.air')
-        .controller('airHeaderCtrl', AirHeaderController);
+        .module('app.layout')
+        .controller('HeaderCtrl', HeaderController);
 
     /**@ngInject*/
-    function AirHeaderController($stateParams, $controller, $scope, $state, messageService, menuService, toolsService,
-                                 breadcrumb, fundUrlParams, sidenavService, infoService, userService, formService,
-                                 $mdDialog, appConfig) {
+    function HeaderController($stateParams, $controller, $scope, $state, messageService, menuService, toolsService,
+                              fundUrlParams, sidenavService, infoService, userService, navigationService) {
         var vm = this,
             assetClassesStrategy = {
                 'main.realEstate': 'RE',
                 'main.privateEquity': 'PE'
             };
         // Properties
-        vm.previousState = breadcrumb.previousState;
-        vm.appConfig = appConfig;
+        vm.backTo = {};
+        navigationService.onChangeRoute(function(routeDesc) {
+            vm.backTo = {displayName: routeDesc};
+        });
+        navigationService.updateDisplayName();
+        vm.previousState = navigationService.previousState;
+        vm.$state = $state;
+
+        $scope.$watch('headerCtrl.$state.current.name', function(newVal){
+            vm.actionVisible = newVal === 'application.block' ? true : false;
+        });
 
         // Methods
         vm.toggleReview = toggleReview;
@@ -27,8 +35,6 @@
         vm.createReview = createReview;
         vm.createCrmEvent = createCrmEvent;
         vm.openInfoModal = openInfoModal;
-        vm.openAirShortcuts = openAirShortcuts;
-        vm.displayNewSiteMap = displayNewSiteMap;
 
         $scope.closeInfoModal  = closeInfoModal;
 
@@ -137,10 +143,6 @@
             reviewCreationCtrl.create();
         }
 
-        function displayNewSiteMap(){
-            return vm.appConfig.useNewEngine && vm.view === 'DUE_DILIGENCE' && vm.assetClass !== 'PE' && vm.assetClass !== 'RE';
-        }
-
         function openInfoModal(){
             doCallSideNavAction(true);
         }
@@ -155,81 +157,6 @@
                 sidenavService.compileAndOpenSideNav('directives/infoModal/infoModal.html', sideNav, $scope);
             } else {
                 sidenavService.closeSideNav(sideNav);
-            }
-        }
-
-        function openAirShortcuts(){
-            resolveAssetClass();
-            var mode = fundUrlParams.viewShortName({summaryView:fundUrlParams.viewToParamName(vm.view)});
-            var assetClass = vm.assetClass;
-            var blocks = formService.getAirShortcuts(vm.view, mode, assetClass);
-            $mdDialog.show({
-                controller: openAirShortcutsModalController,
-                locals: {
-                    mode: mode,
-                    assetClass: assetClass,
-                    blocks: blocks
-                },
-                templateUrl: 'directives/shortcuts/air-shortcuts.html'
-            });
-        }
-
-        /**@ngInject*/
-        function openAirShortcutsModalController(scope, mode, assetClass, blocks) {
-            scope.close = function(){$mdDialog.hide();};
-            scope.mode = mode;
-            scope.assetClass = assetClass;
-            scope.blocks = blocks;
-            scope.blocksFiltered = JSON.parse(JSON.stringify(blocks));
-            scope.goToBlock = function(block){goTo(block);};
-            scope.goToSection = function(block, section){goTo(block, section);};
-            scope.goToChapter = function(block, section, chapter){goTo(block, section, chapter);};
-
-            scope.filterAirShortcuts = function(shortcutFilterModel){
-                if(shortcutFilterModel && shortcutFilterModel.length>0){
-                    scope.blocksFiltered = [];
-                    angular.forEach(scope.blocks, function(b){
-                        var block = JSON.parse(JSON.stringify(b));
-                        block.sections = [];
-                        angular.forEach(b.sections, function(s){
-                            var section = JSON.parse(JSON.stringify(s));
-                            section.chapters = [];
-                            if(s.name.toLowerCase().indexOf(shortcutFilterModel)>-1){
-                                angular.forEach(s.chapters, function(c){
-                                    section.chapters.push(c);
-                                });
-                                block.sections.push(section);
-                            } else {
-                                angular.forEach(s.chapters, function(c){
-                                    if(c.name.toLowerCase().indexOf(shortcutFilterModel)>-1){
-                                        section.chapters.push(c);
-                                    }
-                                });
-                                if(section.chapters.length>0){
-                                    block.sections.push(section);
-                                }
-                            }
-                        });
-                        if(block.sections.length>0){
-                            scope.blocksFiltered.push(block);
-                        }
-                    });
-                } else {
-                    scope.blocksFiltered = JSON.parse(JSON.stringify(blocks));
-                }
-            };
-
-            function goTo(block, section, chapter){
-                $state.go('main.fund', {
-                    fundId: vm.fundId || $state.params.fundId,
-                    assetClass: vm.assetClass,
-                    summaryView: fundUrlParams.viewToParamName(vm.view),
-                    reviewId: $state.params.reviewId,
-                    block: block ? block.id : null,
-                    sectionId: chapter ? null : section ? section.id : null,
-                    chapterId: chapter ? chapter.id : null
-                });
-                scope.close();
             }
         }
     }
