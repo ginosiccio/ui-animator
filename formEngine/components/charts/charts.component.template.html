@@ -1,0 +1,40 @@
+<div class="area-basic-charts-renderer" ng-class="{'has-value': !!chartsComponentCtrl.chartConfig}">
+    <div ng-if="chartsComponentCtrl.params.mode === 'WRITE' && !chartsComponentCtrl.showForm"><md-button ng-click="chartsComponentCtrl.add()" aria-label="'add' | translate" class="btn-add">{{'add' | translate}}</md-button></div>
+    <div ng-if="chartsComponentCtrl.params.mode === 'WRITE' && chartsComponentCtrl.showForm">
+        <div layout="row">
+            <div flex="10">
+                <md-input-container>
+                    <label>{{'chart.year'| translate}}</label>
+                    <input ng-model="chartsComponentCtrl.year.value" type="number" min="{{::chartsComponentCtrl.params.yearMin}}" max="{{::chartsComponentCtrl.params.yearMax}}" ng-change="chartsComponentCtrl.updateAddForm()"/>
+                </md-input-container>
+            </div>
+        </div>
+        <div ng-if="chartsComponentCtrl.year.value">
+            <div class="chart-form-month-values" ng-repeat="courbe in chartsComponentCtrl.timeseriesParams" layout="row" ng-class="{'has-value': chartsComponentCtrl.numberValues(chartsComponentCtrl.newTimeseries[$index]) === 12}">
+                <div flex class="chart-form-month-value">
+                    <div class="first-value">{{::courbe.name}}</div>
+                </div>
+                <div ng-if="chartsComponentCtrl.params.currencyWritable">
+                    <lookup-component id="LKP_{{$parent.$index}}"
+                                      label="::chartsComponentCtrl.currencyLabel"
+                                      ref="noRef"
+                                      field-value="chartsComponentCtrl.newTimeseries[$parent.$index].currency"
+                                      params="::chartsComponentCtrl.currencyLookup"
+                                      api="formEngineApi">
+                    </lookup-component>
+                </div>
+                <div flex ng-repeat="month in chartsComponentCtrl.months" class="chart-form-month-value">
+                    <md-input-container>
+                        <label>{{'chart.'+month | translate}}</label>
+                        <input ng-model="chartsComponentCtrl.newTimeseries[$parent.$index][$index]" class="chart-month-input input-voidable" type="search" ng-model-options="{updateOn: 'blur'}" input-number-voidable />
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="add-new-chart-btn">
+                <md-button ng-click="chartsComponentCtrl.cancel()" aria-label="'cancel' | translate" class="md-raised">{{'cancel' | translate}}</md-button>
+                <md-button ng-click="chartsComponentCtrl.save()" aria-label="'save' | translate" class="btn-save" ng-disabled="!chartsComponentCtrl.year.value" class="btn-add">{{'save' | translate}}</md-button>
+            </div>
+        </div>
+    </div>
+    <highchart config="chartsComponentCtrl.chartConfig"></highchart>
+</div>
