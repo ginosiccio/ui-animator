@@ -1,0 +1,67 @@
+<div class="header">
+    <div class="strip {{info.server.environment}}">{{info.server.environment | uppercase}}</div>
+    <div class="btn-menu">
+        <md-button class="md-icon-button" aria-label="Menu" ng-click="headerCtrl.toggleMenu($event)">
+            <md-icon md-svg-src="assets/img/icons-md/menu.svg"></md-icon>
+        </md-button>
+    </div>
+    <a ng-if="headerCtrl.previousState"
+       ui-sref="{{headerCtrl.previousState.route}}({{headerCtrl.previousState.locals|json}})" class="previous"
+       aria-label="Previous">
+        <md-icon md-svg-src="assets/img/icons/chevron-left-36px.svg"></md-icon>
+        <span ng-if="!headerCtrl.previousName">{{headerCtrl.previousState.displayName|translate}}</span>
+        <span ng-if="headerCtrl.previousName">{{headerCtrl.previousName}}</span>
+    </a>
+
+    <div class="logo" ng-click="headerCtrl.openInfoModal()">
+        <img src="assets/img/icons-md/logo.svg"/>
+    </div>
+    <div class="title">
+        <span>{{headerCtrl.headerTitle}}</span>
+    </div>
+    <div ng-if="!headerCtrl.hideActions && headerCtrl.fundId" class="action"
+         ng-class="{'no-select-date': headerCtrl.pastReviews}">
+        <md-fab-speed-dial md-open="false" md-direction="left" class="md-scale">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-icon-button">
+                    <md-icon md-svg-src="assets/img/icons-md/apps.svg"></md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+                <site-map-component ng-if="headerCtrl.displayNewSiteMap()"></site-map-component>
+                <md-button aria-label="shortcutsForm" class="md-icon-button apps" ng-click="headerCtrl.openAirShortcuts()" ng-if="!headerCtrl.displayNewSiteMap()">
+                    <md-icon md-svg-src="assets/img/icons-md/air-shortcuts.svg"></md-icon>
+                </md-button>
+                <md-button aria-label="createCrmEvent" class="md-icon-button apps" ng-click="headerCtrl.createCrmEvent(headerCtrl.fundId, assetClass)">
+                    <md-icon md-svg-src="assets/img/icons-md/crm.svg"></md-icon>
+                </md-button>
+                <md-button aria-label="createReview" class="md-icon-button apps" ng-if="headerCtrl.displayCreateReview" ng-click="headerCtrl.createReview(headerCtrl.fundId)">
+                    <md-icon md-svg-src="assets/img/icons-md/create-review.svg"></md-icon>
+                </md-button>
+                <md-button aria-label="review" class="md-icon-button apps" ng-if="headerCtrl.displayToggleReview" ng-click="headerCtrl.toggleReview()">
+                    <md-icon md-svg-src="assets/img/icons-md/review.svg"></md-icon>
+                </md-button>
+                <md-button aria-label="third parties" class="md-icon-button apps" ng-click="headerCtrl.goToThirdParties(headerCtrl.fundId, headerCtrl.assetClass)">
+                    <md-icon md-svg-src="assets/img/icons-md/thirdparties.svg"></md-icon>
+                </md-button>
+            </md-fab-actions>
+        </md-fab-speed-dial>
+    </div>
+    <div class="select-date" ng-if="headerCtrl.pastReviews">
+        <div class="dropdown-renderer">
+            <md-input-container>
+                <md-select
+                        ng-model="headerCtrl.reviewId"
+                        placeholder="Past Review"
+                        aria-label="Past Review"
+                        ng-change="headerCtrl.selectReview(headerCtrl.reviewId)"
+                        ng-disabled="headerCtrl.pastReviews.length < 2">
+                    <md-option ng-repeat="review in headerCtrl.pastReviews track by review.uuid"
+                               ng-value="review.uuid">
+                        {{review.period | airDate}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+</div>
